@@ -6,8 +6,8 @@ $(document).ready(function() {
   shoppingList.render();
 
   api.getItems((items) => {
+    console.log(items)
     items.forEach((item) => store.addItem(item));
-    const item = store.items[1];
     shoppingList.render();
   });
 });

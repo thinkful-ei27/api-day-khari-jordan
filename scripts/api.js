@@ -21,19 +21,24 @@ const api = (function () {
       'method': 'POST',
       'contentType': 'application/json',
       'data': newItem,
-      'success': callback
+      'success': callback,
+      'error': error
     });
   };
 
   //Patches items based on ID
   const updateItem = function(id, updateData, callback){
-    const newData = JSON.stringify(updateData);
+    const newData = JSON.stringify(
+      updateData
+    );
     $.ajax({
       'url': `${BASE_URL}/items/${id}`,
       'method': 'PATCH',
       'contentType': 'application/json',
-      'data': `${newData}`,
-      'success': callback
+      'data': newData,
+      'success': callback,
+      'error': error
+      
     });
   };
 
@@ -41,7 +46,8 @@ const api = (function () {
     $.ajax({
       'url': `${BASE_URL}/items/${id}`,
       'method': 'DELETE',
-      'success': callback
+      'success': callback,
+      'error': error
     });
   };
 

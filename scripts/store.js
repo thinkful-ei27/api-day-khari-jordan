@@ -18,7 +18,7 @@ const store = (function(){
   const findAndUpdate = function (id, newData) {
     const item = this.findById(id);
     Object.assign(item, newData);
-  }
+  };
 
   const toggleCheckedFilter = function() {
     this.hideCheckedItems = !this.hideCheckedItems;
@@ -50,16 +50,16 @@ const store = (function(){
 
 
 //const findAndUpdateName = function(id, name) {
-  //   try {
-  //     Item.validateName(name);
-  //     
-  //     item.name = name;
-  //   } catch(e) {
-  //     console.log('Cannot update name: ' + e.message);
-  //   }
-  // };
+//   try {
+//     Item.validateName(name);
+//     
+//     item.name = name;
+//   } catch(e) {
+//     console.log('Cannot update name: ' + e.message);
+//   }
+// };
 
-  // const findAndToggleChecked = function(id) {
-  //   const item = this.findById(id);
-  //   item.checked = !item.checked;
-  // };
+// const findAndToggleChecked = function(id) {
+//   const item = this.findById(id);
+//   item.checked = !item.checked;
+// };

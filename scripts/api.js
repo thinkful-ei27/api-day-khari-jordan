@@ -21,19 +21,39 @@ const api = (function () {
       'method': 'POST',
       'contentType': 'application/json',
       'data': newItem,
-      'success': callback
+      'success': callback,
+      'error': function() {
+        alert('Input is required in order to add item');
+      }
     });
   };
 
   //Patches items based on ID
   const updateItem = function(id, updateData, callback){
-    const newData = JSON.stringify(updateData);
+    const newData = JSON.stringify(
+      updateData
+    );
     $.ajax({
       'url': `${BASE_URL}/items/${id}`,
       'method': 'PATCH',
       'contentType': 'application/json',
-      'data': `${newData}`,
-      'success': callback
+      'data': newData,
+      'success': callback,
+      'error': function() {
+        alert('New update is invalid');
+      }
+      
+    });
+  };
+
+  const deleteItem = function (id, callback) {
+    $.ajax({
+      'url': `${BASE_URL}/items/${id}`,
+      'method': 'DELETE',
+      'success': callback,
+      'error': function() {
+        alert('The item does not exist');
+      }
     });
   };
 
@@ -41,7 +61,8 @@ const api = (function () {
     BASE_URL,
     getItems,
     createItem,
-    updateItem
+    updateItem,
+    deleteItem
   };
 	
 }());

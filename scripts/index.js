@@ -7,14 +7,7 @@ $(document).ready(function() {
 
   api.getItems((items) => {
     items.forEach((item) => store.addItem(item));
+    const item = store.items[1];
     shoppingList.render();
-  });
-});
-
-api.getItems((items) => {
-  const item = items[0];
-
-  api.updateItem(item.id, { name: 'foobar' }, () => {
-    console.log('updated!');
   });
 });

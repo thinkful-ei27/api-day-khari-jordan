@@ -25,10 +25,23 @@ const api = (function () {
     });
   };
 
+  //Patches items based on ID
+  const updateItem = function(id, updateData, callback){
+    const newData = JSON.stringify(updateData);
+    $.ajax({
+      'url': `${BASE_URL}/items/${id}`,
+      'method': 'PATCH',
+      'contentType': 'application/json',
+      'data': `${newData}`,
+      'success': callback
+    });
+  };
+
   return {
     BASE_URL,
     getItems,
     createItem,
+    updateItem
   };
 	
 }());

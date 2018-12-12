@@ -6,7 +6,6 @@ const api = (function () {
   
   //returns data from GET request to items
   const getItems = function (callback) {
-    //callback('api module works!');
     $.getJSON(`${BASE_URL}/items`, callback);
   };
   

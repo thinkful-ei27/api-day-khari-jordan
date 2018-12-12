@@ -6,16 +6,16 @@ const api = (function () {
   
   //returns data from GET request to items
   const getItems = function (callback) {
-    callback('api module works!');
+    //callback('api module works!');
     $.getJSON(`${BASE_URL}/items`, callback);
   };
   
 
   //Sends POST request to items
   const createItem = function (name, callback) {
-    console.log('createItem ran')
+    console.log('createItem ran');
     const newItem = JSON.stringify({
-        name: name,
+      name: name,
     });
     $.ajax({
       'url': `${BASE_URL}/items`,

@@ -6,7 +6,6 @@ $(document).ready(function() {
   shoppingList.render();
 
   api.getItems((items) => {
-    console.log(items);
     items.forEach((item) => store.addItem(item));
     shoppingList.render();
   });

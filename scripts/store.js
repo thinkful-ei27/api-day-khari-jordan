@@ -33,6 +33,11 @@ const store = (function(){
     this.searchTerm = term;
   };
 
+  const error = function(error) {
+    console.log(error)
+    alert(error.responseJSON.message)
+  }
+
   return {
     items: [],
     hideCheckedItems: false,
@@ -44,6 +49,7 @@ const store = (function(){
     setSearchTerm,
     setItemIsEditing,
     findAndUpdate,
+    error,
   };
   
 }());

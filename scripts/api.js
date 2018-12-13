@@ -11,8 +11,9 @@ const api = (function () {
   
 
   //Sends POST request to items
-  const createItem = function (name, callback) {
+  const createItem = function (name, callback, error) {
     console.log('createItem ran');
+    console.log(callback)
     const newItem = JSON.stringify({
       name: name,
     });
@@ -22,14 +23,12 @@ const api = (function () {
       'contentType': 'application/json',
       'data': newItem,
       'success': callback,
-      'error': function() {
-        alert('Input is required in order to add item');
-      }
+      'error': error
     });
   };
 
   //Patches items based on ID
-  const updateItem = function(id, updateData, callback){
+  const updateItem = function(id, updateData, callback, error){
     const newData = JSON.stringify(
       updateData
     );
@@ -39,21 +38,16 @@ const api = (function () {
       'contentType': 'application/json',
       'data': newData,
       'success': callback,
-      'error': function() {
-        alert('New update is invalid');
-      }
-      
+      'error': error
     });
   };
 
-  const deleteItem = function (id, callback) {
+  const deleteItem = function (id, callback, error) {
     $.ajax({
       'url': `${BASE_URL}/items/${id}`,
       'method': 'DELETE',
       'success': callback,
-      'error': function() {
-        alert('The item does not exist');
-      }
+      'error': error
     });
   };
 
@@ -64,6 +58,4 @@ const api = (function () {
     updateItem,
     deleteItem
   };
-	
 }());
-

@@ -33,7 +33,7 @@ const shoppingList = (function(){
         </div>
       </li>`;
   }
-  
+
   
   function generateShoppingItemsString(shoppingList) {
     const items = shoppingList.map((item) => generateItemElement(item));
@@ -54,7 +54,6 @@ const shoppingList = (function(){
     }
   
     // render the shopping list in the DOM
-    console.log('`render` ran');
     const shoppingListItemsString = generateShoppingItemsString(items);
   
     // insert that HTML into the DOM
@@ -66,11 +65,12 @@ const shoppingList = (function(){
     $('#js-shopping-list-form').submit(function (event) {
       event.preventDefault();
       const newItemName = $('.js-shopping-list-entry').val();
+      const message = 'Input is required in order to add item';
       $('.js-shopping-list-entry').val('');
       api.createItem(newItemName, (newItem) => {
         store.addItem(newItem);
         render();
-      });
+      },(message) => store.error(message));
     });
   }
   
@@ -84,9 +84,8 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
       const item = store.findById(id);
-      
-      api.updateItem(id, {checked: !item.checked}, store.findAndUpdate(id, {checked: !item.checked}));
-      //store.findAndToggleChecked(id);
+      api.updateItem(id, {checked: !item.checked}, store.findAndUpdate(id, {checked: !item.checked}), 
+      );
       render();
     });
   }
@@ -96,7 +95,7 @@ const shoppingList = (function(){
     $('.js-shopping-list').on('click', '.js-item-delete', event => {
       // get the index of the item in store.items
       const id = getItemIdFromElement(event.currentTarget);
-      api.deleteItem(id, store.findAndDelete(id));
+      api.deleteItem(id, store.findAndDelete(id), (message) => store.error(message));
       // delete the item
       //store.findAndDelete(id);
       // render the updated shopping list
@@ -109,13 +108,17 @@ const shoppingList = (function(){
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-      api.updateItem(id, {name: itemName}, store.findAndUpdate(id, {name: itemName, isEditing: false}));
+      api.updateItem(id, {name: itemName}, store.findAndUpdate(id, {name: itemName, isEditing: false}), (message) => store.error(message));
       //store.findAndUpdateName(id, itemName);
       //store.setItemIsEditing(id, false);
       render();
     });
   }
   
+  function handeleAlertClose() {
+    $('alert').on('click', render())
+  }
+
   function handleToggleFilterClick() {
     $('.js-filter-checked').click(() => {
       store.toggleCheckedFilter();
@@ -147,6 +150,7 @@ const shoppingList = (function(){
     handleToggleFilterClick();
     handleShoppingListSearch();
     handleItemStartEditing();
+    handeleAlertClose()
   }
 
   // This object contains the only exposed methods from this module:
